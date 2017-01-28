@@ -52,3 +52,11 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+.idea/
+app/proguard-rules.pro
+gradle.properties
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+settings.gradle

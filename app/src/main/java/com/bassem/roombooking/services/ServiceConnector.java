@@ -1,13 +1,17 @@
 package com.bassem.roombooking.services;
 
 
-import com.bassem.roombooking.helper.ServiceCallResultListener;
-import com.bassem.roombooking.helper.ToStringConverterFactory;
+import com.bassem.roombooking.helper.ServiceGetRoomsResultListener;
+import com.bassem.roombooking.models.GetRoomsPostParameters;
+import com.bassem.roombooking.models.Room;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Bassem Samy on 1/28/2017.
@@ -16,31 +20,34 @@ import retrofit2.Retrofit;
 public class ServiceConnector {
     static final String API_BASE_URL = "https://challenges.1aim.com/roombooking_app/";
 
-
-    public static Call<String> getRooms(final ServiceCallResultListener serviceCallResultListener) {
+    /**
+     * retruns a list of rooms by a certain date
+     * @param serviceGetRoomsResultListener
+     * @param getRoomsPostParameters
+     * @return
+     */
+    public static Call<List<Room>> getRooms(final ServiceGetRoomsResultListener serviceGetRoomsResultListener, GetRoomsPostParameters getRoomsPostParameters) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
-                .addConverterFactory(new ToStringConverterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GetRoomsService service = retrofit.create(GetRoomsService.class);
-        Call<String> getRoomsServiceCall = service.getRooms();
-        getRoomsServiceCall.enqueue(new Callback<String>() {
+        Call<List<Room>> getRoomsServiceCall = service.getRooms(getRoomsPostParameters);
+        getRoomsServiceCall.enqueue(new Callback<List<Room>>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (serviceCallResultListener != null) {
-                    serviceCallResultListener.onResponse(response.body());
+            public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
+                if (serviceGetRoomsResultListener != null) {
+                    serviceGetRoomsResultListener.onResponse(response.body());
                 }
             }
 
-
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                if (serviceCallResultListener != null) {
-                    serviceCallResultListener.onError(t);
+            public void onFailure(Call<List<Room>> call, Throwable t) {
+                if (serviceGetRoomsResultListener != null) {
+                    serviceGetRoomsResultListener.onError(t);
                 }
             }
         });
         return getRoomsServiceCall;
-
     }
 
 }

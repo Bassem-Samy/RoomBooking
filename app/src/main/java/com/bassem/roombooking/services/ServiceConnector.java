@@ -22,11 +22,12 @@ public class ServiceConnector {
 
     /**
      * retruns a list of rooms by a certain date
+     *
      * @param serviceGetRoomsResultListener
      * @param getRoomsPostParameters
      * @return
      */
-    public static Call<List<Room>> getRooms(final ServiceGetRoomsResultListener serviceGetRoomsResultListener, GetRoomsPostParameters getRoomsPostParameters) {
+    public static Call<List<Room>> getRooms(GetRoomsPostParameters getRoomsPostParameters, final ServiceGetRoomsResultListener serviceGetRoomsResultListener) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -12,6 +12,8 @@
     <color name="colorYellow">#FFE900</color>
     <color name="colorLemonGreen">#9ABD36</color>
     <color name="colorGreen">#009547</color>
-    <color name="colorMainBakground">#FFFFFF</color>
+    <color name="colorMainBakground">#FAFAFA</color>
     <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

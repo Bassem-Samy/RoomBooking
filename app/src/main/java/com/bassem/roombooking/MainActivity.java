@@ -20,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetRoomsPostParameters param = new GetRoomsPostParameters();
-        GetRoomsPostParameters params = new GetRoomsPostParameters();
-
-        ServiceConnector.getRooms(params, resultListener);
         initializeFragments();
     }
 
@@ -33,16 +29,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    ServiceGetRoomsResultListener resultListener = new ServiceGetRoomsResultListener() {
-        @Override
-        public void onResponse(List<Room> rooms) {
-            ArrayList<Room> currentRooms = new ArrayList<Room>(rooms);
-            Log.e("result", Integer.toString(currentRooms.size()));
-        }
 
-        @Override
-        public void onError(Throwable throwable) {
-            Log.e("error", throwable.getMessage());
-        }
-    };
 }

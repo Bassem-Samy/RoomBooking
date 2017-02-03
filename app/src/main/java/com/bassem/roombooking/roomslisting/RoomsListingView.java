@@ -22,7 +22,7 @@ public interface RoomsListingView {
 
     void showMessage(String message);
 
-    void DatePicked(Date date);
+    void datePicked(int year, int monthInYear, int dayInMonth);
     // add filters and clicks afterwards
     void updateRoomsList(List<Room> roomList);
 

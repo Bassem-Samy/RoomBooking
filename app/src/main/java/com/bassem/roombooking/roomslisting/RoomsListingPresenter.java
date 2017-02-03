@@ -1,5 +1,6 @@
 package com.bassem.roombooking.roomslisting;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,5 +16,6 @@ public interface RoomsListingPresenter {
 
     void navigateToPreviousDay();
 
-    void selectDate(Date date);
+    void selectDate(int year,int monthInYear,int dayInMonth);
+    void loadInitialData();
 }

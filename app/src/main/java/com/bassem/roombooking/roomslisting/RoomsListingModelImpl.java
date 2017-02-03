@@ -1,5 +1,7 @@
 package com.bassem.roombooking.roomslisting;
 
+import android.util.Log;
+
 import com.bassem.roombooking.helper.ServiceCallResultListener;
 import com.bassem.roombooking.helper.ServiceGetRoomsResultListener;
 import com.bassem.roombooking.models.GetRoomsPostParameters;
@@ -31,7 +33,8 @@ public class RoomsListingModelImpl implements RoomsListingModel {
     public void stopGettingRoomsList() {
         if (getRoomsListCall != null) {
             getRoomsListCall.cancel();
-            getRoomsListCall = null;
+           // getRoomsListCall = null;
+            Log.e("stopGettingRoomsList", "canceled");
         }
     }
 

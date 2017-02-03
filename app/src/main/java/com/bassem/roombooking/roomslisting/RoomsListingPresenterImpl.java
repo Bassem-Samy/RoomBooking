@@ -1,5 +1,7 @@
 package com.bassem.roombooking.roomslisting;
 
+import android.util.Log;
+
 import com.bassem.roombooking.helper.ServiceGetRoomsResultListener;
 import com.bassem.roombooking.models.GetRoomsPostParameters;
 import com.bassem.roombooking.models.Room;
@@ -38,12 +40,19 @@ public class RoomsListingPresenterImpl implements RoomsListingPresenter, Service
     public void onResponse(List<Room> rooms) {
         mView.hideProgress();
         mView.updateRoomsList(rooms);
+        Log.e("updateRoomsList",Integer.toString(rooms.size()));
     }
 
     @Override
     public void onError(Throwable throwable) {
         //mView.showMessage("");
+        Log.e("onError",throwable.getMessage());
         mView.hideProgress();
+    }
+
+    @Override
+    public void onCancelled() {
+        // so far do nothing
     }
 
     @Override

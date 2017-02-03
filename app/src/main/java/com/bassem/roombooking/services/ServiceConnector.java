@@ -44,7 +44,12 @@ public class ServiceConnector {
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
                 if (serviceGetRoomsResultListener != null) {
-                    serviceGetRoomsResultListener.onError(t);
+                    if (call.isCanceled()) {
+                        serviceGetRoomsResultListener.onCancelled();
+                    } else {
+                        serviceGetRoomsResultListener.onError(t);
+                    }
+
                 }
             }
         });

@@ -12,4 +12,6 @@ public interface ServiceGetRoomsResultListener {
     public void onResponse(List<Room> rooms);
 
     public void onError(Throwable throwable);
+
+    public void onCancelled();
 }

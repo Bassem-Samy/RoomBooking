@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bassem.roombooking.R;
+import com.bassem.roombooking.controls.RoomAvailabilityBar;
+import com.bassem.roombooking.controls.RoomAvailabilityDisplayBar;
 import com.bassem.roombooking.models.Room;
 
 import org.w3c.dom.Text;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 
 /**
- * Created by Mina Samy on 2/3/2017.
+ * Created by Bassem Samy on 2/3/2017.
  */
 
 public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> {
@@ -51,7 +53,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         holder.locationTextView.setText(mFilteredDataset.get(position).getLocation());
         holder.capacityTextView.setText(mFilteredDataset.get(position).getCapacity());
         holder.equipmentsTextView.setText(populateCapacity(mFilteredDataset.get(position).getEquipment()));
-
+        holder.availabilityBar.setHelloText(Integer.toString(position));
     }
 
 
@@ -95,6 +97,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         TextView locationTextView;
         TextView capacityTextView;
         TextView equipmentsTextView;
+        RoomAvailabilityDisplayBar availabilityBar;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -102,7 +105,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
             locationTextView = (TextView) itemView.findViewById(R.id.txt_room_location);
             capacityTextView = (TextView) itemView.findViewById(R.id.txt_room_capacity);
             equipmentsTextView = (TextView) itemView.findViewById(R.id.txt_room_equipments);
-
+            availabilityBar = (RoomAvailabilityDisplayBar) itemView.findViewById(R.id.room_availability_display_bar);
         }
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bassem.roombooking.R;
+import com.bassem.roombooking.controls.RoomAvailabilityBar;
 import com.bassem.roombooking.models.Room;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
     DatePickerDialog datePickerDialog;
     RoomsAdapter mRoomsAdapter;
     ArrayList<Room> roomsArrayList;
+
     @BindView(R.id.txt_selected_date)
     TextView selectedDateTextView;
     @BindView(R.id.rclr_rooms)
@@ -113,7 +115,7 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
     public void hideProgress() {
         mainProgressBar.setVisibility(View.GONE);
         roomsRecyclerView.setVisibility(View.VISIBLE);
-        Log.e("hideProgress","true");
+        Log.e("hideProgress", "true");
     }
 
     @OnClick(R.id.img_btn_previous_date)

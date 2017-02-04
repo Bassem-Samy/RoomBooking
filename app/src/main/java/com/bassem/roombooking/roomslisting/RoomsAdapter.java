@@ -25,12 +25,17 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     ArrayList<Room> mDataset;
     ArrayList<Room> mFilteredDataset;
     View.OnClickListener mOnItemClickListener;
+    String andMoreText;
+    StringBuilder stringBuilder;
+    static final String EQUIPMENT_SEPARATOR = ", ";
 
     public RoomsAdapter(Context context, View.OnClickListener onItemClickListener, ArrayList<Room> rooms) {
         this.mContext = context;
         mOnItemClickListener = onItemClickListener;
         this.mDataset = rooms;
         this.mFilteredDataset = rooms;
+        andMoreText = mContext.getString(R.string.and_more);
+        stringBuilder = new StringBuilder();
     }
 
     @Override
@@ -43,8 +48,12 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.nameTextView.setText(mFilteredDataset.get(position).getName());
+        holder.locationTextView.setText(mFilteredDataset.get(position).getLocation());
+        holder.capacityTextView.setText(mFilteredDataset.get(position).getCapacity());
+        holder.equipmentsTextView.setText(populateCapacity(mFilteredDataset.get(position).getEquipment()));
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -64,12 +73,35 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    private String populateCapacity(String[] equipment) {
+        if (equipment != null) {
+            stringBuilder.setLength(0);
+            if (equipment.length > 0) {
+                stringBuilder.append(equipment[0]);
+            }
+            if (equipment.length > 1) {
+                stringBuilder.append(EQUIPMENT_SEPARATOR).append(equipment[1]);
+            }
+            if (equipment.length > 2) {
+                stringBuilder.append(andMoreText);
+            }
+            return stringBuilder.toString();
+        }
+        return "";
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
+        TextView locationTextView;
+        TextView capacityTextView;
+        TextView equipmentsTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.txt_room_name);
+            locationTextView = (TextView) itemView.findViewById(R.id.txt_room_location);
+            capacityTextView = (TextView) itemView.findViewById(R.id.txt_room_capacity);
+            equipmentsTextView = (TextView) itemView.findViewById(R.id.txt_room_equipments);
 
         }
     }

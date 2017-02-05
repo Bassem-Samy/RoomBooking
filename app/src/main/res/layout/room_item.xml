@@ -44,7 +44,7 @@
 
             <com.bassem.roombooking.controls.RoomAvailabilityDisplayBar
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:id="@+id/room_availability_display_bar"></com.bassem.roombooking.controls.RoomAvailabilityDisplayBar>
 
             <TextView

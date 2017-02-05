@@ -53,7 +53,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         holder.locationTextView.setText(mFilteredDataset.get(position).getLocation());
         holder.capacityTextView.setText(mFilteredDataset.get(position).getCapacity());
         holder.equipmentsTextView.setText(populateCapacity(mFilteredDataset.get(position).getEquipment()));
-        holder.availabilityBar.setHelloText(Integer.toString(position));
+        holder.availabilityBar.setData(7, 19, 4, mFilteredDataset.get(position).getAvail());
     }
 
 

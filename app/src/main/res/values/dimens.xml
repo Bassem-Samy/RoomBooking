@@ -8,4 +8,5 @@
 
     <dimen name="margin5">5dp</dimen>
     <dimen name="margin15">15dp</dimen>
+    <dimen name="padding5">5dp</dimen>
 </resources>

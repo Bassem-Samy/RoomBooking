@@ -1,12 +1,14 @@
 package com.bassem.roombooking.controls;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
     int separatorColor;
     int orangeColor;
     int blueColor;
+    Drawable separatorBackground;
 
     public RoomAvailabilityDisplayBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,6 +64,9 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
         separatorColor = ContextCompat.getColor(mContext, R.color.colorWhite);
         blueColor = ContextCompat.getColor(mContext, R.color.colorBlue);
         orangeColor = ContextCompat.getColor(mContext, R.color.colorOrange);
+        separatorBackground = ContextCompat.getDrawable(mContext, R.drawable.shape_white_bg);
+
+        // this.getViewTreeObserver().addOnGlobalLayoutListener(globalLayoutListener);
     }
 
     public void setData(int startRange, int endRange, int subIntervals, String[] availableIntervals) {
@@ -80,11 +86,11 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
         LinearLayout.LayoutParams intervalParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
         DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
         int width = (int) ((1 * displayMetrics.density) + 0.5);
-        timeBarsLinearLayout.setWeightSum((mStartRange - mEndRange) * 4);
-        separatorsLinearLayout.setWeightSum(mEndRange - mStartRange);
+        //separatorsLinearLayout.setWeightSum(mEndRange - mStartRange);
         FrameLayout.LayoutParams whiteSeparatorParams = new FrameLayout.LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT);
         whiteSeparatorParams.gravity = Gravity.START;
         for (int i = 0; i < (mEndRange - mStartRange) * mSubInterval; i++) {
+            //for (int i = 0; i < (mEndRange - mStartRange) ; i++) {
             FrameLayout frm = new FrameLayout(mContext);
             frm.setLayoutParams(intervalParams);
             if (isIntervalAvailable(i) == true) {
@@ -93,29 +99,29 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
                 frm.setBackgroundColor(busyColor);
             }
             timeBarsLinearLayout.addView(frm);
+
+
         }
         for (int j = 0; j <= (mEndRange - mStartRange); j++) {
             TextView tv = new TextView(mContext);
             tv.setLayoutParams(intervalParams);
-            tv.setGravity(TEXT_ALIGNMENT_CENTER);
+            tv.setGravity(Gravity.CENTER_HORIZONTAL);
             tv.setText(Integer.toString(j + mStartRange));
             tv.setTextColor(textColor);
             timeSpansLinearLayout.addView(tv);
 
 
         }
-        for (int k = 0; k < (mEndRange - mStartRange); k++) {
+        for (int k = 0; k < (mEndRange - mStartRange) * mSubInterval; k++) {
             FrameLayout separatorFrameLayout = new FrameLayout(mContext);
             separatorFrameLayout.setLayoutParams(intervalParams);
-            FrameLayout whiteSeparatorFrameLayout = new FrameLayout(mContext);
-            whiteSeparatorFrameLayout.setBackgroundColor(separatorColor);
-            whiteSeparatorFrameLayout.setLayoutParams(whiteSeparatorParams);
-
-
-            separatorFrameLayout.addView(whiteSeparatorFrameLayout);
-            separatorFrameLayout.getLayoutParams().width = 0;
+            if (k % mSubInterval == 0) {
+                separatorFrameLayout.setBackground(separatorBackground);
+            }
             separatorsLinearLayout.addView(separatorFrameLayout);
+
         }
+
 
     }
 

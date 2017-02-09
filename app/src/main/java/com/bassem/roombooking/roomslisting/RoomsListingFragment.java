@@ -7,11 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +30,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 
 public class RoomsListingFragment extends Fragment implements RoomsListingView, View.OnClickListener {
@@ -48,6 +54,10 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
     RecyclerView roomsRecyclerView;
     @BindView(R.id.prgrs_main)
     ProgressBar mainProgressBar;
+    @BindView(R.id.edt_filter)
+    EditText filterEditText;
+    @BindView(R.id.check_available_next_hour)
+    CheckBox availableNextHourCheckBox;
     LinearLayoutManager roomsLinearLayoutManager;
 
     public RoomsListingFragment() {
@@ -91,6 +101,7 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
         roomsRecyclerView.setAdapter(mRoomsAdapter);
         mPresenter.loadInitialData();
     }
+
 
     private void initializeDatePickerDialog() {
 
@@ -180,5 +191,19 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
         int position = roomsRecyclerView.getChildAdapterPosition(view);
         Room item = mRoomsAdapter.getItemByPosition(position);
         Toast.makeText(getContext(), item.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+
+    @OnCheckedChanged(R.id.check_available_next_hour)
+    public void availableNextHourCheckChanged(boolean isChecked) {
+        mRoomsAdapter.filterData(filterEditText.getText().toString(), isChecked, mPresenter.getCurrentCalendar());
+    }
+
+    @OnTextChanged(R.id.edt_filter)
+    public void afterFilterTextChanged(Editable editable) {
+        if (editable != null) {
+            mRoomsAdapter.filterData(editable.toString(), availableNextHourCheckBox.isChecked(), mPresenter.getCurrentCalendar());
+        }
+        ;
     }
 }

@@ -6,4 +6,7 @@
     <string name="room">Room</string>
     <string name="and_more">\u0020and more..</string>
     <string name="capacity">Capacity:</string>
+    <string name="available_ext_hour">Available next hour</string>
+    <string name="filter_rooms">Filter rooms</string>
+    <string name="avail_next_hour">Avail. next hour</string>
 </resources>

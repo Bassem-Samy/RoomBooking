@@ -83,20 +83,20 @@ public class Room {
         return "ClassPojo [location = " + location + ", name = " + name + ", images = " + images + ", capacity = " + capacity + ", avail = " + avail + ", equipment = " + equipment + ", size = " + size + "]";
     }
 
-    public boolean isInFilter(FilterObj filter) {
-        return checkIsInFilter(filter);
+    public boolean isInFilter(String text, boolean isAvailableNextHour, Calendar selectedDay) {
+        return checkIsInFilter(text, isAvailableNextHour, selectedDay);
 
     }
 
-    private boolean checkIsInFilter(FilterObj filter) {
+    private boolean checkIsInFilter(String nameFilter, boolean availableNextHour, Calendar selectedDay) {
         boolean satisfies = true;
-        if (filter.mNameFilter != null && filter.mNameFilter.isEmpty() == false) {
-            if (this.name.toLowerCase().contains(filter.mNameFilter.toLowerCase()) == false) {
+        if (nameFilter != null && nameFilter.isEmpty() == false) {
+            if (this.name.toLowerCase().contains(nameFilter.toLowerCase()) == false) {
                 return false;
             }
         }
-        if (filter.mAvailableFilter == true) {
-            if (this.isAvailableNextHour(filter.selectedDay) == false) {
+        if (availableNextHour == true) {
+            if (this.isAvailableNextHour(selectedDay) == false) {
                 return false;
             }
         }
@@ -110,6 +110,7 @@ public class Room {
         }
         selectedDay.add(Calendar.HOUR_OF_DAY, 1);
         int nextHour = selectedDay.get(Calendar.HOUR_OF_DAY);
+        selectedDay.add(Calendar.HOUR_OF_DAY,-1);//coz it keeps reference
         for (int i = 0; i < avail.length; i++) {
             String[] splits = avail[i].split("-");
             if (splits.length == 2) {
@@ -127,15 +128,5 @@ public class Room {
         return false;
     }
 
-    public class FilterObj {
-        private String mNameFilter;
-        private boolean mAvailableFilter;
-        Calendar selectedDay;
 
-        public void setFilters(String nameFilter, boolean availableInNextHour, Calendar selectedDay) {
-            this.mNameFilter = nameFilter;
-            this.mAvailableFilter = availableInNextHour;
-            this.selectedDay = selectedDay;
-        }
-    }
 }

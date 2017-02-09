@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.bassem.roombooking.R;
@@ -15,6 +16,7 @@ import com.bassem.roombooking.models.Room;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
 
@@ -70,7 +72,11 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     }
 
     public void setDataSet(ArrayList<Room> dataSet) {
-        this.mDataset = dataSet;
+        if (dataSet != null) {
+            this.mDataset = new ArrayList<>(dataSet);
+        } else {
+            this.mDataset = dataSet;
+        }
         this.mFilteredDataset = dataSet;
         notifyDataSetChanged();
     }
@@ -92,6 +98,16 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         return "";
     }
 
+    public void filterData(String text, boolean filterWithAvailableNextHour, Calendar selectedDay) {
+        mFilteredDataset.clear();
+        for (int i = 0; i < mDataset.size(); i++) {
+            if (mDataset.get(i).isInFilter(text, filterWithAvailableNextHour, selectedDay)) {
+                mFilteredDataset.add(mDataset.get(i));
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView locationTextView;
@@ -106,6 +122,19 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
             capacityTextView = (TextView) itemView.findViewById(R.id.txt_room_capacity);
             equipmentsTextView = (TextView) itemView.findViewById(R.id.txt_room_equipments);
             availabilityBar = (RoomAvailabilityDisplayBar) itemView.findViewById(R.id.room_availability_display_bar);
+        }
+    }
+
+
+    public class RoomsFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            return null;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
         }
     }
 }

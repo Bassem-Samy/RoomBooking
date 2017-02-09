@@ -118,27 +118,35 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
 
     @Override
     public void showProgress() {
+        setFiltersEnabled(false);
         mainProgressBar.setVisibility(View.VISIBLE);
         roomsRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
+        setFiltersEnabled(true);
         mainProgressBar.setVisibility(View.GONE);
         roomsRecyclerView.setVisibility(View.VISIBLE);
         Log.e("hideProgress", "true");
     }
 
+    private void setFiltersEnabled(boolean enabled) {
+        filterEditText.setEnabled(enabled);
+        availableNextHourCheckBox.setEnabled(enabled);
+    }
+
     @OnClick(R.id.img_btn_previous_date)
     @Override
     public void navigateToNextDay() {
-
+        clearFilters();
         mPresenter.navigateToPreviousDay();
     }
 
     @OnClick(R.id.img_btn_next_date)
     @Override
     public void navigateToPreviousDay() {
+        clearFilters();
         mPresenter.navigateToNextDay();
     }
 
@@ -154,9 +162,10 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
 
     @Override
     public void datePicked(int year, int monthInYear, int dayInMonth) {
-
+        clearFilters();
         updateSelectedDateText();
     }
+
 
     @Override
     public void updateRoomsList(List<Room> roomList) {
@@ -205,5 +214,14 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
             mRoomsAdapter.filterData(editable.toString(), availableNextHourCheckBox.isChecked(), mPresenter.getCurrentCalendar());
         }
         ;
+    }
+
+    private void clearFilters() {
+        if (filterEditText.getText().toString().isEmpty() == false) {
+            filterEditText.setText("");
+        }
+        if (availableNextHourCheckBox.isChecked() == true) {
+            availableNextHourCheckBox.setChecked(false);
+        }
     }
 }

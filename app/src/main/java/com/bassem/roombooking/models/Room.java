@@ -1,5 +1,8 @@
 package com.bassem.roombooking.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.nio.charset.Charset;
 import java.util.Calendar;
 
@@ -7,7 +10,7 @@ import java.util.Calendar;
  * Created by Bassem Samy on 1/31/2017.
  */
 
-public class Room {
+public class Room implements Parcelable{
     private String location;
 
     private String name;
@@ -21,6 +24,28 @@ public class Room {
     private String[] equipment;
 
     private String size;
+
+    protected Room(Parcel in) {
+        location = in.readString();
+        name = in.readString();
+        images = in.createStringArray();
+        capacity = in.readString();
+        avail = in.createStringArray();
+        equipment = in.createStringArray();
+        size = in.readString();
+    }
+
+    public static final Creator<Room> CREATOR = new Creator<Room>() {
+        @Override
+        public Room createFromParcel(Parcel in) {
+            return new Room(in);
+        }
+
+        @Override
+        public Room[] newArray(int size) {
+            return new Room[size];
+        }
+    };
 
     public String getLocation() {
         return location;
@@ -129,4 +154,19 @@ public class Room {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(location);
+        parcel.writeString(name);
+        parcel.writeStringArray(images);
+        parcel.writeString(capacity);
+        parcel.writeStringArray(avail);
+        parcel.writeStringArray(equipment);
+        parcel.writeString(size);
+    }
 }

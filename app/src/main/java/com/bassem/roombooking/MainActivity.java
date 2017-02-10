@@ -14,7 +14,7 @@ import com.bassem.roombooking.services.ServiceConnector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RoomsListingFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,4 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRoomClicked(Room room) {
+
+    }
 }

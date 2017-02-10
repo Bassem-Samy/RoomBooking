@@ -2,13 +2,13 @@ package com.bassem.roombooking.roomslisting;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bassem.roombooking.R;
-import com.bassem.roombooking.controls.RoomAvailabilityBar;
 import com.bassem.roombooking.models.Room;
+import com.bassem.roombooking.roomdetails.RoomDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,9 +150,10 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
         mPresenter.navigateToNextDay();
     }
 
+    @OnClick(R.id.frm_selct_date)
     @Override
     public void showCalendar() {
-
+        datePickerDialog.show();
     }
 
     @Override
@@ -190,16 +191,13 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
                 mPresenter.getCurrentCalendar().get(Calendar.DAY_OF_MONTH));
     }
 
-    @OnClick(R.id.frm_selct_date)
-    void showDatePicker() {
-        datePickerDialog.show();
-    }
 
     @Override
     public void onClick(View view) {
         int position = roomsRecyclerView.getChildAdapterPosition(view);
         Room item = mRoomsAdapter.getItemByPosition(position);
-        Toast.makeText(getContext(), item.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), item.getName(), Toast.LENGTH_SHORT).show();
+        mListener.onRoomClicked(item);
     }
 
 
@@ -223,5 +221,29 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
         if (availableNextHourCheckBox.isChecked() == true) {
             availableNextHourCheckBox.setChecked(false);
         }
+    }
+
+    OnFragmentInteractionListener mListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof RoomsListingFragment.OnFragmentInteractionListener) {
+        } else {
+            mListener = (OnFragmentInteractionListener) context;
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onRoomClicked(Room room);
     }
 }

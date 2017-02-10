@@ -9,4 +9,7 @@
     <string name="available_ext_hour">Available next hour</string>
     <string name="filter_rooms">Filter rooms</string>
     <string name="avail_next_hour">Avail. next hour</string>
+    <string name="avialability">Availability</string>
+    <string name="equipments">Equipments</string>
+    <string name="size">Size</string>
 </resources>

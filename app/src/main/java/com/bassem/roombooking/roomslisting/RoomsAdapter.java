@@ -9,16 +9,11 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import com.bassem.roombooking.R;
-import com.bassem.roombooking.controls.RoomAvailabilityBar;
 import com.bassem.roombooking.controls.RoomAvailabilityDisplayBar;
 import com.bassem.roombooking.models.Room;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Bassem Samy on 2/3/2017.
@@ -54,7 +49,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         holder.nameTextView.setText(mFilteredDataset.get(position).getName());
         holder.locationTextView.setText(mFilteredDataset.get(position).getLocation());
         holder.capacityTextView.setText(mFilteredDataset.get(position).getCapacity());
-        holder.equipmentsTextView.setText(populateCapacity(mFilteredDataset.get(position).getEquipment()));
+        holder.equipmentsTextView.setText(populateEquipments(mFilteredDataset.get(position).getEquipment()));
         holder.availabilityBar.setData(7, 19, 4, mFilteredDataset.get(position).getAvail());
     }
 
@@ -81,7 +76,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    private String populateCapacity(String[] equipment) {
+    private String populateEquipments(String[] equipment) {
         if (equipment != null) {
             stringBuilder.setLength(0);
             if (equipment.length > 0) {
@@ -99,10 +94,13 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.ViewHolder> 
     }
 
     public void filterData(String text, boolean filterWithAvailableNextHour, Calendar selectedDay) {
-        mFilteredDataset.clear();
-        for (int i = 0; i < mDataset.size(); i++) {
-            if (mDataset.get(i).isInFilter(text, filterWithAvailableNextHour, selectedDay)) {
-                mFilteredDataset.add(mDataset.get(i));
+        if (mFilteredDataset != null) {
+            mFilteredDataset.clear();
+
+            for (int i = 0; i < mDataset.size(); i++) {
+                if (mDataset.get(i).isInFilter(text, filterWithAvailableNextHour, selectedDay)) {
+                    mFilteredDataset.add(mDataset.get(i));
+                }
             }
         }
         notifyDataSetChanged();

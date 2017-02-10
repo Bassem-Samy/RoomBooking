@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.bassem.roombooking.R;
 import com.bassem.roombooking.models.Room;
-import com.bassem.roombooking.roomdetails.RoomDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -197,7 +196,9 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
         int position = roomsRecyclerView.getChildAdapterPosition(view);
         Room item = mRoomsAdapter.getItemByPosition(position);
         //Toast.makeText(getContext(), item.getName(), Toast.LENGTH_SHORT).show();
-        mListener.onRoomClicked(item);
+        if (mListener != null) {
+            mListener.onRoomClicked(item);
+        }
     }
 
 
@@ -229,8 +230,9 @@ public class RoomsListingFragment extends Fragment implements RoomsListingView, 
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof RoomsListingFragment.OnFragmentInteractionListener) {
+            mListener = (RoomsListingFragment.OnFragmentInteractionListener) context;
+
         } else {
-            mListener = (OnFragmentInteractionListener) context;
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }

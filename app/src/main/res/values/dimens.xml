@@ -10,4 +10,7 @@
     <dimen name="margin15">15dp</dimen>
     <dimen name="margin20">20dp</dimen>
     <dimen name="padding5">5dp</dimen>
+
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="availability_bar_height">40dp</dimen>
 </resources>

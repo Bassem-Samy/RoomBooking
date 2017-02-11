@@ -20,7 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".roomdetails.RoomDetailsActivity" />
-        <activity android:name=".imagegallery.GalleryActivity"></activity>
+        <activity android:name=".imagegallery.GalleryActivity" />
+        <activity
+            android:name=".bookroom.BookRoomActivity"
+            android:label="@string/title_activity_book_room"></activity>
     </application>
 
 </manifest>

@@ -6,11 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bassem.roombooking.R;
+import com.bassem.roombooking.bookroom.BookRoomActivity;
+import com.bassem.roombooking.bookroom.BookRoomFragment;
 import com.bassem.roombooking.imagegallery.GalleryActivity;
 import com.bassem.roombooking.imagegallery.GalleryFragment;
 import com.bassem.roombooking.models.Room;
 
 public class RoomDetailsActivity extends AppCompatActivity implements RoomDetailsFragment.OnFragmentInteractionListener {
+
+    private static final int REQUEST_CODE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,9 @@ public class RoomDetailsActivity extends AppCompatActivity implements RoomDetail
 
     @Override
     public void onFragmentInteraction(Room room) {
-
+        Intent bookRoomIntent = new Intent(this, BookRoomActivity.class);
+        bookRoomIntent.putExtra(BookRoomFragment.ARG_ROOM, room);
+        startActivityForResult(bookRoomIntent, REQUEST_CODE);
     }
 
     @Override

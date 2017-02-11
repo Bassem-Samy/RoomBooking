@@ -102,7 +102,9 @@ public class RoomDetailsFragment extends Fragment implements RoomDetailsView {
     @OnClick(R.id.fab_book)
     @Override
     public void bookRoom() {
-
+        if (mListener != null){
+            mListener.onFragmentInteraction(mRoom);
+        }
     }
 
     @Override

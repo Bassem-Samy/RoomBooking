@@ -99,7 +99,12 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
                 frm.setBackgroundColor(busyColor);
             }
             timeBarsLinearLayout.addView(frm);
-
+            FrameLayout separatorFrameLayout = new FrameLayout(mContext);
+            separatorFrameLayout.setLayoutParams(intervalParams);
+            if (i % mSubInterval == 0) {
+                separatorFrameLayout.setBackground(separatorBackground);
+            }
+            separatorsLinearLayout.addView(separatorFrameLayout);
 
         }
         for (int j = 0; j <= (mEndRange - mStartRange); j++) {
@@ -112,15 +117,15 @@ public class RoomAvailabilityDisplayBar extends FrameLayout {
 
 
         }
-        for (int k = 0; k < (mEndRange - mStartRange) * mSubInterval; k++) {
-            FrameLayout separatorFrameLayout = new FrameLayout(mContext);
-            separatorFrameLayout.setLayoutParams(intervalParams);
-            if (k % mSubInterval == 0) {
-                separatorFrameLayout.setBackground(separatorBackground);
-            }
-            separatorsLinearLayout.addView(separatorFrameLayout);
-
-        }
+//        for (int k = 0; k < (mEndRange - mStartRange) * mSubInterval; k++) {
+//            FrameLayout separatorFrameLayout = new FrameLayout(mContext);
+//            separatorFrameLayout.setLayoutParams(intervalParams);
+//            if (k % mSubInterval == 0) {
+//                separatorFrameLayout.setBackground(separatorBackground);
+//            }
+//            separatorsLinearLayout.addView(separatorFrameLayout);
+//
+//        }
 
 
     }

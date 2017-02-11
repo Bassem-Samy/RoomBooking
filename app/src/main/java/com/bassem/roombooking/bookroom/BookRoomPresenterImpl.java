@@ -5,7 +5,7 @@ import android.view.View;
 import com.bassem.roombooking.models.Room;
 
 /**
- * Created by Mina Samy on 2/11/2017.
+ * Created by Bassem Samy on 2/11/2017.
  */
 
 public class BookRoomPresenterImpl implements BookRoomPresenter {

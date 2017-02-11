@@ -8,4 +8,6 @@ import com.bassem.roombooking.models.Room;
 
 public interface BookRoomPresenter {
     void displayData();
+
+    String convertIndexRangeToTime(int value);
 }

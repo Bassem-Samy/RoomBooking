@@ -21,4 +21,16 @@ public class BookRoomPresenterImpl implements BookRoomPresenter {
     public void displayData() {
         mView.displayData(mRoom);
     }
+
+    @Override
+    public String convertIndexRangeToTime(int value) {
+        String hour = Integer.toString(7 + (value / 4));
+        String minutes = Integer.toString(15 * (value % 4));
+        if (minutes.length() == 1) {
+            minutes = "0" + minutes;
+        }
+        return hour + ":" + minutes;
+    }
+
+
 }

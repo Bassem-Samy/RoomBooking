@@ -13,4 +13,6 @@
     <string name="equipments">Equipments</string>
     <string name="size">Size</string>
     <string name="title_activity_book_room">BookRoomActivity</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 </resources>

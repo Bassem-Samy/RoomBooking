@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bassem.roombooking.models.Room;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.apptik.widget.MultiSlider;
 
 
 public class BookRoomFragment extends Fragment implements BookRoomView {
@@ -28,6 +30,12 @@ public class BookRoomFragment extends Fragment implements BookRoomView {
     TextView roomNameTextView;
     @BindView(R.id.room_availability_display_bar)
     RoomAvailabilityDisplayBar roomAvailabilityDisplayBar;
+    @BindView(R.id.range_slider)
+    MultiSlider rangeMultiSlider;
+    @BindView(R.id.txt_from)
+    TextView fromTimeTextView;
+    @BindView(R.id.txt_to)
+    TextView toTimeTextView;
 
     public BookRoomFragment() {
         // Required empty public constructor
@@ -87,10 +95,33 @@ public class BookRoomFragment extends Fragment implements BookRoomView {
     public void displayData(Room room) {
         roomNameTextView.setText(room.getName());
         roomAvailabilityDisplayBar.setData(7, 19, 4, room.getAvail());
+        rangeMultiSlider.setMin(0);
+        rangeMultiSlider.setMax(48);
+        rangeMultiSlider.setOnThumbValueChangeListener(onThumbValueChangeListener);
     }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(int resultCode);
+    }
+
+    MultiSlider.OnThumbValueChangeListener onThumbValueChangeListener = new MultiSlider.OnThumbValueChangeListener() {
+        @Override
+        public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+            if (thumbIndex == 0) {
+                updateFromText(value);
+            } else {
+                updateToText(value);
+            }
+        }
+
+    };
+
+    private void updateFromText(int value) {
+        fromTimeTextView.setText(mPresenter.convertIndexRangeToTime(value));
+    }
+
+    private void updateToText(int value) {
+        toTimeTextView.setText(mPresenter.convertIndexRangeToTime(value));
     }
 }

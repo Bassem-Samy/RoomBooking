@@ -11,9 +11,19 @@ MVP design pattern, devided the app into packages related to each screen "RoomsL
 2- made a custom control (controls/RoomAvailabilityDisplayBar.java) it extends FrameLayout,
 you specify the startHour, endHour and subIntervals(15 minutes) and the control draws time slots, for each hour divided by the interval,
 and then checks for each room what are the available timings and give them a different color than red.<br /><br />
+</br></br>
+
+![](http://i.imgur.com/VfJfhOu.gif)
+![](http://i.imgur.com/RmpsSW0.gif)
+</br></br>
 3- Second screen was room details screen, it contains the room info, also the availability bar for the room, and clickable gallery images for each room.<br /><br />
+![](http://i.imgur.com/X94EWDX.gif)
+</br> </br>
 4- Booking Room screen, to achieve the range slider effect over the availability bar, just added a two thumb seekbar (MultiSlider) over the availability bar
 and gave it (hours*subintervals) steps in order to be accurate (each slide step is 15 minutes)
+</br></br>
+![](http://i.imgur.com/JG0M849.gif)
+</br></br>
 ##TODO: 
 What isn't yet implemented, is adding the attendees list , which would be implemented by using a simple recycler view that holds the already added attendees, and a simple form to add new ones.
 validations would by by simple helper static classes that check for name, email, and phone regexes.
